@@ -1,4 +1,18 @@
+# when you change this file, you will need to redeploy to prisma
 type User {
   id: ID! @unique
   name: String!
+  email: String!
+}
+
+type Item {
+  id: ID! @unique
+  title: String!
+  description: String!
+  image: String!
+  largeImage: String!
+  price: Int!
+  #  createdAt: DateTime!
+  #  updatedAt: DateTime!
+  #  user: User!
 }
