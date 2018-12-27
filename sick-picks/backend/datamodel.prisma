@@ -1,8 +1,21 @@
-# when you change this file, you will need to redeploy to prisma
+# when you change this file, you will need to redeploy to prisma (npm run deploy)
+
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
 type User {
   id: ID! @unique
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: String
+  permissions: [Permission]
 }
 
 type Item {
