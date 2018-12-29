@@ -1,5 +1,6 @@
 // resolver must mirrow the schema
 const { forwardTo } = require('prisma-binding');
+const { hasPermission } = require('../utils');
 // if no logic is need, you can pull directly from prisma and run that function.
 const Query = {
   items: forwardTo('db'),
@@ -17,11 +18,18 @@ const Query = {
       },
       info
     );
+  },
+  async users(parent, args, ctx, info) {
+    // 1. check if user is logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in');
+    }
+    // 2. check for permissions
+
+    hasPermission(ctx.request.user, ['ADMIN', 'PERMISSIONUPDATE']);
+    // 3. get users
+    return ctx.db.query.users({}, info);
   }
-  // async items(parent, args, ctx, info) {
-  //   const items = await ctx.db.query.items();
-  //   return items;
-  // }
 };
 
 module.exports = Query;
