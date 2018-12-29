@@ -1,6 +1,7 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { endpoint } from '../config';
+import { LOCAL_STATE_QUERY } from '../components/Cart';
 
 function createClient({ headers }) {
   return new ApolloClient({
@@ -8,11 +9,34 @@ function createClient({ headers }) {
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: 'include',
+          credentials: 'include'
         },
-        headers,
+        headers
       });
     },
+    // local data
+    clientState: {
+      resolvers: {
+        Mutation: {
+          toggleCart(_, variables, client) {
+            // for some no reason the first param is underscore.
+            // 1. get current cartOpen val
+            const { cartOpen } = client.cache.readQuery({
+              query: LOCAL_STATE_QUERY
+            });
+            // 2. new vonst for data
+            const data = {
+              data: { cartOpen: !cartOpen }
+            };
+            client.cache.writeData(data);
+            return data;
+          }
+        }
+      },
+      defaults: {
+        cartOpen: true
+      }
+    }
   });
 }
 
