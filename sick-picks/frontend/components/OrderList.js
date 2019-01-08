@@ -37,12 +37,8 @@ class OrderList extends React.Component {
     return (
       <Query query={USER_ORDERS_QUERY}>
         {({ data: { orders }, loading, error }) => {
-          {
-            console.log(orders);
-          }
           if (loading) return <p>loading...</p>;
           if (error) return <Error erorr={error} />;
-          console.log(orders);
           return (
             <div>
               <h2>You have {orders.length} orders</h2>

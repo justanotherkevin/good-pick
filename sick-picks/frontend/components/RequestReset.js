@@ -58,3 +58,4 @@ class RequestRest extends Component {
 }
 
 export default RequestRest;
+export { REQUEST_RESET_MUTATION };
