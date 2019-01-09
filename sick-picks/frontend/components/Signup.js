@@ -7,8 +7,8 @@ import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
-    $email: String!
     $name: String!
+    $email: String!
     $password: String!
   ) {
     signup(email: $email, name: $name, password: $password) {
@@ -19,11 +19,11 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export default class Signup extends Component {
+class Signup extends Component {
   state = {
     name: '',
-    password: '',
-    email: ''
+    email: '',
+    password: ''
   };
 
   inputChange = e => {
@@ -86,3 +86,5 @@ export default class Signup extends Component {
     );
   }
 }
+export default Signup;
+export { SIGNUP_MUTATION };

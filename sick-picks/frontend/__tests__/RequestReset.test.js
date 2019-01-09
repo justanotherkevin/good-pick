@@ -31,6 +31,7 @@ describe('<RequestReset/> component test', () => {
     expect(toJSON(form)).toMatchSnapshot();
     // console.log(form.debug());
   });
+
   it('calls the mutations', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
@@ -46,9 +47,10 @@ describe('<RequestReset/> component test', () => {
     });
     // simulate form submit
     wrapper.find('form').simulate('submit');
-    await wait();
+    await wait(5);
     wrapper.update();
-    expect(wrapper.find('p').text()).toContain(
+    const targetMessage = wrapper.find('p');
+    expect(targetMessage.text()).toBe(
       'Success! Check your email for a reset link!'
     );
   });

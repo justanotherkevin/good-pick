@@ -28,11 +28,16 @@ const CREATE_ITEM_MUTATION = gql`
 
 class CreateItem extends Component {
   state = {
-    title: 'Cool Shoes',
-    description: 'I love those shoes',
-    image: 'dog.jpg',
-    largeImage: 'large-dog.jpg',
-    price: 1000
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
+    price: 0
+    // title: 'Cool Shoes',
+    // description: 'I love those shoes',
+    // image: 'dog.jpg',
+    // largeImage: 'large-dog.jpg',
+    // price: 1000
   };
   handleChange = e => {
     const { name, type, value } = e.target;
@@ -54,7 +59,6 @@ class CreateItem extends Component {
       }
     );
     const file = await res.json();
-    console.log(file);
     this.setState({
       image: file.secure_url,
       largeImage: file.eager[0].secure_url
@@ -65,13 +69,13 @@ class CreateItem extends Component {
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
           <Form
+            data-test="form"
             onSubmit={async e => {
               // Stop the form from submitting
               e.preventDefault();
               // call the mutation
               const res = await createItem();
               // redirect them to single item page
-              console.log(res);
               Router.push({
                 pathname: '/item',
                 query: { id: res.data.createItem.id }
@@ -80,7 +84,6 @@ class CreateItem extends Component {
           >
             <ErrorMessage error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
-            
               <label htmlFor="file">
                 Image
                 <input
