@@ -6,3 +6,8 @@
    - Mutations and Query Resolvers
 3. Rewact App
    - next.js
+
+
+https://mailtrap.io
+https://app.prisma.io
+https://www.howtographql.com
