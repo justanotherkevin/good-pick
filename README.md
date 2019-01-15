@@ -11,3 +11,6 @@
 https://mailtrap.io  
 https://app.prisma.io  
 https://www.howtographql.com   
+
+hosted on Heroku free account 
+https://sickpick-next-prod.herokuapp.com
