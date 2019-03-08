@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
+// * instead of using higher order component (ex.redux connect(mapStateToProps, mapDispatchToProps)(ThisComponent) ), use this Query component (Render props)
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Item from './Item';
 import Pagination from './Pagination';
 import { perPage } from '../config';
+import { ALL_ITEMS_QUERY } from '../gql/query';
 
-const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
-    items(first: $first, skip: $skip, orderBy: createdAt_DESC) {
-      id
-      title
-      price
-      description
-      image
-      largeImage
-    }
-  }
-`;
 const ItemsList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -29,18 +19,16 @@ const Center = styled.div`
   text-align: center;
 `;
 
-class Items extends Component {
+class Items extends PureComponent {
   render() {
     return (
       <Center>
         <Pagination page={this.props.page} />
         <Query
           query={ALL_ITEMS_QUERY}
-          variables={{
-            skip: this.props.page * perPage - perPage
-          }}
+          variables={{ skip: this.props.page * perPage - perPage }}
         >
-          {/* query have a payload variable that is return; using destructuring to take only data, error,loading */}
+          {/* the <Query> return a *payload*  destructing the payload to get the data, error, loading*/}
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -58,4 +46,3 @@ class Items extends Component {
   }
 }
 export default Items;
-export { ALL_ITEMS_QUERY };

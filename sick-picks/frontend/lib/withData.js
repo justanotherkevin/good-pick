@@ -24,7 +24,7 @@ function createClient({ headers }) {
             const { cartOpen } = client.cache.readQuery({
               query: LOCAL_STATE_QUERY
             });
-            // 2. new vonst for data
+            // 2. new const for data
             const data = {
               data: { cartOpen: !cartOpen }
             };

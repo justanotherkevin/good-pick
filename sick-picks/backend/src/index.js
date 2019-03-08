@@ -1,11 +1,10 @@
-const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
-
 require('dotenv').config({ path: 'variables.env' });
-const createServer = require('./createServer');
-const db = require('./db');
 
-const server = createServer();
+const cookieParser = require('cookie-parser'),
+  jwt = require('jsonwebtoken'),
+  createServer = require('./createServer'),
+  db = require('./db'),
+  server = createServer();
 
 // TODO Use express middlware to handle cookies (JWT)
 server.express.use(cookieParser());
@@ -32,7 +31,7 @@ server.express.use(async (req, res, next) => {
   req.user = user;
   next();
 });
-// starting !
+
 server.start(
   {
     cors: {
@@ -42,6 +41,6 @@ server.start(
     }
   },
   deets => {
-    console.log(`Server is now running on port http:/localhost:${deets.port}`);
+    console.log(`Server is now running on port http://localhost:${deets.port}`);
   }
 );

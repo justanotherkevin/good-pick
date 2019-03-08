@@ -51,7 +51,7 @@ class SingleItem extends Component {
             <SingleItemStyles>
               {/* moddify head, title to the name of the item; sideeffect with next.js*/}
               <Head>
-                <title>Sick Fits | {item.title}</title>
+                <title>Good Shop | {item.title}</title>
               </Head>
               <img src={item.largeImage} alt={item.title} />
               <div className="details">

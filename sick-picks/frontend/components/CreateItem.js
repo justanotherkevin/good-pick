@@ -5,26 +5,7 @@ import Router from 'next/router';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import ErrorMessage from './ErrorMessage';
-
-const CREATE_ITEM_MUTATION = gql`
-  mutation CREATE_ITEM_MUTATION(
-    $title: String!
-    $description: String!
-    $price: Int!
-    $image: String
-    $largeImage: String
-  ) {
-    createItem(
-      title: $title
-      description: $description
-      price: $price
-      image: $image
-      largeImage: $largeImage
-    ) {
-      id
-    }
-  }
-`;
+import { CREATE_ITEM_MUTATION } from '../gql/mutation';
 
 class CreateItem extends Component {
   state = {
@@ -45,7 +26,6 @@ class CreateItem extends Component {
     this.setState({ [name]: val });
   };
   uploadFile = async e => {
-    console.log('uploading file...');
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
@@ -71,7 +51,6 @@ class CreateItem extends Component {
           <Form
             data-test="form"
             onSubmit={async e => {
-              // Stop the form from submitting
               e.preventDefault();
               // call the mutation
               const res = await createItem();
@@ -149,4 +128,3 @@ class CreateItem extends Component {
   }
 }
 export default CreateItem;
-export { CREATE_ITEM_MUTATION };

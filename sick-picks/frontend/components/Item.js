@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Title from './styles/Title';
@@ -8,7 +8,7 @@ import formatMoney from '../lib/formatMoney';
 import DeleteItem from './DeleteItem';
 import AddToCart from './AddToCart';
 
-export default class Item extends Component {
+export default class Item extends PureComponent {
   static propTypes = {
     item: PropTypes.object.isRequired
   };

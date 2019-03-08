@@ -5,39 +5,10 @@ import Router from 'next/router';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import ErrorMessage from './ErrorMessage';
+import { UPDATE_ITEM_MUTATION } from '../gql/mutation';
+import { SINGLE_ITEM_QUERY } from '../gql/query';
 
-const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($id: ID!) {
-    item(where: { id: $id }) {
-      id
-      title
-      description
-      price
-    }
-  }
-`;
-const UPDATE_ITEM_MUTATION = gql`
-  mutation UPDATE_ITEM_MUTATION(
-    $id: ID!
-    $title: String
-    $description: String
-    $price: Int
-  ) {
-    updateItem(
-      id: $id
-      title: $title
-      description: $description
-      price: $price
-    ) {
-      id
-      title
-      description
-      price
-    }
-  }
-`;
-
-class CreateItem extends Component {
+class UpdateItem extends Component {
   state = {};
   handleChange = e => {
     const { name, type, value } = e.target;
@@ -46,15 +17,16 @@ class CreateItem extends Component {
   };
   updateItem = async (e, updateItemMutation) => {
     e.preventDefault();
-    console.log('Updating Item!!');
-    console.log(this.state);
     const res = await updateItemMutation({
       variables: {
         id: this.props.id,
         ...this.state
       }
     });
-    console.log('Updated!!');
+    Router.push({
+      pathname: '/item',
+      query: { id: res.data.updateItem.id }
+    });
   };
 
   render() {
@@ -67,8 +39,8 @@ class CreateItem extends Component {
           if (!data.item) return <p>No Item Found for ID {this.props.id}</p>;
           return (
             <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-              {(updateItem, { loading, error }) => (
-                <Form onSubmit={e => this.updateItem(e, updateItem)}>
+              {(updateItemMutation, { loading, error }) => (
+                <Form onSubmit={e => this.updateItem(e, updateItemMutation)}>
                   <ErrorMessage error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
                     <label htmlFor="title">
@@ -121,5 +93,4 @@ class CreateItem extends Component {
     );
   }
 }
-export default CreateItem;
-export { UPDATE_ITEM_MUTATION };
+export default UpdateItem;

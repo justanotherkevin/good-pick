@@ -4,12 +4,16 @@ const NavStyles = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
   justify-self: end;
   font-size: 2rem;
+  max-width: ${props => props.theme.maxWidth};
   a,
   button {
+    flex: 1;
     padding: 1rem 3rem;
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
     text-transform: uppercase;
@@ -58,11 +62,17 @@ const NavStyles = styled.ul`
       }
     }
   }
+  a:first-child {
+    &:before {
+      content: none;
+    }
+  }
   @media (max-width: 1300px) {
     border-top: 1px solid ${props => props.theme.lightgrey};
     width: 100%;
     justify-content: center;
     font-size: 1.5rem;
+    justify-self: center;
   }
 `;
 
