@@ -8,7 +8,7 @@
    - next.js
 
 
-https://mailtrap.io  
+https://mailtrap.io  : sending passingword reset 
 https://app.prisma.io  
 https://www.howtographql.com   
 
