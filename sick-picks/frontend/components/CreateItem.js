@@ -14,11 +14,6 @@ class CreateItem extends Component {
     image: '',
     largeImage: '',
     price: 0
-    // title: 'Cool Shoes',
-    // description: 'I love those shoes',
-    // image: 'dog.jpg',
-    // largeImage: 'large-dog.jpg',
-    // price: 1000
   };
   handleChange = e => {
     const { name, type, value } = e.target;

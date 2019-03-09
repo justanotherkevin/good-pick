@@ -7,7 +7,6 @@ const NavStyles = styled.ul`
   justify-content: center;
   justify-self: end;
   font-size: 2rem;
-  max-width: ${props => props.theme.maxWidth};
   a,
   button {
     flex: 1;

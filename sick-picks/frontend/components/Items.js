@@ -10,10 +10,13 @@ import { ALL_ITEMS_QUERY } from '../gql/query';
 
 const ItemsList = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 60px;
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
+  @media only screen and (min-width: 850px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 const Center = styled.div`
   text-align: center;
@@ -23,7 +26,6 @@ class Items extends PureComponent {
   render() {
     return (
       <Center>
-        <Pagination page={this.props.page} />
         <Query
           query={ALL_ITEMS_QUERY}
           variables={{ skip: this.props.page * perPage - perPage }}
@@ -41,6 +43,7 @@ class Items extends PureComponent {
             );
           }}
         </Query>
+        <Pagination page={this.props.page} />
       </Center>
     );
   }

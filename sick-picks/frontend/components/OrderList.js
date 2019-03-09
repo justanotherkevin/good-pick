@@ -7,24 +7,7 @@ import gql from 'graphql-tag';
 import Error from './ErrorMessage';
 import formatMoney from '../lib/formatMoney';
 import OrderItemStyles from './styles/OrderItemStyles';
-
-const USER_ORDERS_QUERY = gql`
-  query USER_ORDERS_QUERY {
-    orders(orderBy: createdAt_DESC) {
-      id
-      total
-      createdAt
-      items {
-        id
-        title
-        price
-        description
-        quantity
-        image
-      }
-    }
-  }
-`;
+import { USER_ORDERS_QUERY } from '../gql/query';
 
 const OrderUl = styled.ul`
   display: grid;

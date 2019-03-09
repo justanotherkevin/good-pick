@@ -53,16 +53,16 @@ const Mutations = {
     const where = { id: args.id };
     const tempInfo = `{ id title user{ id }}`;
     const item = await ctx.db.query.item({ where }, tempInfo);
-    // if for delete permission
+
     const ownsItem = item.user.id === ctx.request.userId;
     const hasPermissions = ctx.request.user.permissions.some(userPerm =>
       ['ADMIN', 'ITEMDELETE'].includes(userPerm)
     );
-    console.log(ownsItem, hasPermissions);
-    if (!ownsItem || !hasPermissions) {
-      throw new Error(' no way jose ');
+    if (ownsItem || hasPermissions) {
+      return ctx.db.mutation.deleteItem({ where }, info);
+    } else {
+      throw new Error(' no way jose, permission required');
     }
-    return ctx.db.mutation.deleteItem({ where }, info);
   },
 
   async signup(parent, args, ctx, info) {
@@ -148,7 +148,7 @@ const Mutations = {
       \n\n
       <a href="${
         process.env.FRONTEND_URL
-      }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+        }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
     });
     return { message: 'Thanks!' };
   },

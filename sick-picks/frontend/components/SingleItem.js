@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Error from './ErrorMessage';
 import styled from 'styled-components';
 import Head from 'next/head';
+import { SINGLE_ITEM_QUERY } from '../gql/query';
 
 const SingleItemStyles = styled.div`
-  max-width: 1200px;
+  max-width: 600px;
   margin: 2rem auto;
   box-shadow: ${props => props.theme.bs};
   display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr;
+  /* grid-auto-flow: column; */
   min-height: 800px;
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    padding: 2rem;
   }
   .details {
     margin: 3rem;
     font-size: 2rem;
   }
-`;
-
-const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($id: ID!) {
-    item(where: { id: $id }) {
-      id
-      title
-      description
-      largeImage
-    }
+  @media only screen and ( min-width: ${prop => prop.theme.mediaScreenMedium} ) {
+    max-width: ${props => props.theme.maxWidth};
+    grid-template-columns: 1fr 1fr;
   }
 `;
+
+
 class SingleItem extends Component {
   render() {
     const itemObj = { id: this.props.id };
@@ -55,7 +51,7 @@ class SingleItem extends Component {
               </Head>
               <img src={item.largeImage} alt={item.title} />
               <div className="details">
-                <h2>Viewing {item.title}</h2>
+                <h2>{item.title}</h2>
                 <p>{item.description}</p>
               </div>
             </SingleItemStyles>
@@ -66,4 +62,3 @@ class SingleItem extends Component {
   }
 }
 export default SingleItem;
-export { SINGLE_ITEM_QUERY };

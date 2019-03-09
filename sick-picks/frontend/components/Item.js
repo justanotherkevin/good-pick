@@ -26,7 +26,6 @@ export default class Item extends PureComponent {
         </Title>
         <PriceTag>{formatMoney(item.price)}</PriceTag>
         <p>{item.description}</p>
-
         <div className="buttonList">
           <Link href={{ pathname: 'update', query: { id: item.id } }}>
             <a>Edit ✏️</a>

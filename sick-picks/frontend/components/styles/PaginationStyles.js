@@ -11,8 +11,9 @@ const PaginationStyles = styled.div`
   border: 1px solid ${props => props.theme.lightgrey};
   border-radius: 10px;
   & > * {
+    font-size: 1rem;
     margin: 0;
-    padding: 15px 30px;
+    padding: 10px 12px;
     border-right: 1px solid ${props => props.theme.lightgrey};
     &:last-child {
       border-right: 0;
@@ -22,6 +23,12 @@ const PaginationStyles = styled.div`
     color: grey;
     pointer-events: none;
   }
-`;
+  @media screen and ( min-width:  ${props => props.theme.mediaScreenMedium} ) {
+    & > * {
+      font-size: 1.3rem;
+    }
+
+  }
+ `;
 
 export default PaginationStyles;

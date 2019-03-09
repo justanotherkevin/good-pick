@@ -1,10 +1,9 @@
-#  public facing api, only selected things we want to exppose;
-# a very strange way to get data from other file,
+# * public facing api, only selected things we want to exppose;
 
 # import * from './generated/prisma.graphql'
+# ! a very strange way to get data from other file, it looks like a comment but it is not
 
 type SuccessMessage {
-  # custom type
   message: String
 }
 type Mutation {

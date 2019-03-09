@@ -24,8 +24,8 @@ const Logo = styled.h1`
   transform: skew(-7deg);
   a {
     padding: 0.5rem 1rem;
-    background: ${props => props.theme.red};
-    color: white;
+    /* background: ${props => props.theme.red}; */
+    color: ${props => props.theme.red};
     text-transform: uppercase;
     text-decoration: none;
   }
@@ -58,7 +58,7 @@ const Header = () => (
     <div className="bar">
       <Logo>
         <Link href="/">
-          <a>GoodShop</a>
+          <a>Good_Shop</a>
         </Link>
       </Logo>
       <Nav />
